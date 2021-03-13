@@ -12,15 +12,18 @@ import androidx.core.app.ActivityCompat
 import com.freedomrun.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class CurrentMaratonFragment : Fragment(), OnMapReadyCallback {
+class CurrentMaratonFragment : Fragment() {
 
-    lateinit var client: FusedLocationProviderClient
+//    lateinit var client: FusedLocationProviderClient
+
+    private lateinit var map: GoogleMap
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,28 +37,29 @@ class CurrentMaratonFragment : Fragment(), OnMapReadyCallback {
 
         val mapFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 
-        mapFragment.getMapAsync(this)
+//        mapFragment.getMapAsync(this)
 
-        client = LocationServices.getFusedLocationProviderClient(requireActivity())
+//        client = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
 
-    override fun onMapReady(googleMap: GoogleMap?) {
-
-        val map = googleMap
-
-        if(checkLocationPermission()) {
-            client.lastLocation.addOnCompleteListener {
-                val latitude = it.result?.latitude
-                val longitude = it.result?.longitude
-
-                val pos = LatLng(latitude!!, longitude!!)
-
-                map?.addMarker(MarkerOptions().position(pos).title("My name"))
-
-                Toast.makeText(requireContext(), "My Location: " + latitude.toString() + ", " + longitude.toString(), Toast.LENGTH_LONG).show()
-            }
-        }
-    }
+//    override fun onMapReady(googleMap: GoogleMap) {
+//        map = googleMap
+//        val sydney = LatLng(-34.0, 151.0)
+//        map?.addMarker(MarkerOptions().position(sydney).title("m in s"))
+//        map?.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+//        if(checkLocationPermission()) {
+//            client.lastLocation.addOnCompleteListener {
+//                val latitude = it.result?.latitude
+//                val longitude = it.result?.longitude
+//
+//                val pos = LatLng(latitude!!, longitude!!)
+//
+//                map?.addMarker(MarkerOptions().position(pos).title("My name"))
+//
+//                Toast.makeText(requireContext(), "My Location: " + latitude.toString() + ", " + longitude.toString(), Toast.LENGTH_LONG).show()
+//            }
+//        }
+//    }
 
     private fun checkLocationPermission(): Boolean {
         var state = false

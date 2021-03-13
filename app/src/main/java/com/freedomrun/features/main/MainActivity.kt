@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity(){
 
         supportFragmentManager.beginTransaction()
             .addToBackStack(null)
-            .add(R.id.main_container, CurrentMaratonFragment())
+            .add(R.id.main_container, MapsFragment())
             .commit()
 
     }
