@@ -31,16 +31,13 @@ class CurrentMaratonFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         val mapFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-
         mapFragment.getMapAsync(this)
 
         client = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
-
         val map = googleMap
 
         if(checkLocationPermission()) {
@@ -59,15 +56,15 @@ class CurrentMaratonFragment : Fragment(), OnMapReadyCallback {
 
     private fun checkLocationPermission(): Boolean {
         var state = false
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if( (requireActivity().checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if ((requireActivity().checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 && (requireActivity().checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)) == PackageManager.PERMISSION_GRANTED) {
                     state = true
             } else {
                 ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
                  android.Manifest.permission.ACCESS_FINE_LOCATION), 1000)
             }
-        }else {
+        } else {
             state = true
         }
         return state
