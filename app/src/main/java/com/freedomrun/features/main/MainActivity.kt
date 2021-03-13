@@ -1,7 +1,8 @@
-package com.freedomrun
+package com.freedomrun.features.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.freedomrun.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
