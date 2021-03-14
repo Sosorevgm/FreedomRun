@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <Button
+        android:id="@+id/btn_result"
+        android:layout_width="137dp"
+        android:layout_height="62dp"
+        android:background="#A58FFF"
+        android:text="Результат"
+        app:layout_constraintEnd_toStartOf="@+id/btn_run"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btn_run"
+        android:layout_width="137dp"
+        android:layout_height="62dp"
+        android:background="#A58FFF"
+        android:text="Забег"
+        app:layout_constraintEnd_toStartOf="@+id/btn_hide"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_result"
+        />
+
+    <Button
+        android:id="@+id/btn_hide"
+        android:layout_width="137dp"
+        android:layout_height="62dp"
+        android:background="#A58FFF"
+        android:text="Забег"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_run"
+        />
+
+    <fragment
+        android:id="@+id/MymapCurrent"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="301dp"
+        android:layout_height="289dp"
+        android:layout_marginTop="108dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_run"
+        tools:srcCompat="@tools:sample/avatars"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_stop"
+        android:layout_width="103dp"
+        android:layout_height="107dp"
+        android:layout_marginTop="144dp"
+        android:backgroundTint="#D91F1F"
+        android:text="СТОП"
+        android:textSize="18sp"
+        app:cornerRadius="100sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.668"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MymapCurrent"
+        app:layout_constraintVertical_bias="1.0"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_pause"
+        android:layout_width="103dp"
+        android:layout_height="107dp"
+        android:layout_marginTop="144dp"
+        android:backgroundTint="#D9A51F"
+        android:text="ПАУЗА"
+        android:textSize="18sp"
+        app:cornerRadius="100sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.311"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MymapCurrent"
+        app:layout_constraintVertical_bias="1.0"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
