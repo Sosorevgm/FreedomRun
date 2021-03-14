@@ -12,19 +12,42 @@
         android:name="com.freedomrun.ui.FragmentNewMarafon"
         android:label="FragmentNewMarafon"
         tools:layout="@layout/fragment_new_marafon"
-        />
+        >
+        <action
+            android:id="@+id/action_fragmentNewMarafon_to_fragmentCurrentMarafon"
+            app:destination="@id/fragmentCurrentMarafon"
+            />
+    </fragment>
     <fragment
         android:id="@+id/fragmentPauseMarafon"
         android:name="com.freedomrun.ui.FragmentPauseMarafon"
         android:label="FragmentPauseMarafon"
         tools:layout="@layout/fragment_pause_marafon"
-        />
+        >
+        <action
+            android:id="@+id/action_fragmentPauseMarafon_to_mapsActivity"
+            app:destination="@id/mapsActivity"
+            />
+    </fragment>
     <fragment
         android:id="@+id/fragmentCurrentMarafon"
         android:name="com.freedomrun.ui.FragmentCurrentMarafon"
         android:label="FragmentPauseMarafon"
         tools:layout="@layout/fragment_current_marafon"
-        />
+        >
+        <action
+            android:id="@+id/action_fragmentCurrentMarafon_to_fragmentNewMarafon"
+            app:destination="@id/fragmentNewMarafon"
+            />
+        <action
+            android:id="@+id/action_fragmentCurrentMarafon_to_fragmentPauseMarafon"
+            app:destination="@id/fragmentPauseMarafon"
+            />
+        <action
+            android:id="@+id/action_fragmentCurrentMarafon_to_mapsActivity"
+            app:destination="@id/mapsActivity"
+            />
+    </fragment>
     <activity
         android:id="@+id/mapsActivity"
         android:name="com.freedomrun.finish.running.model.ui.MapsActivity"
