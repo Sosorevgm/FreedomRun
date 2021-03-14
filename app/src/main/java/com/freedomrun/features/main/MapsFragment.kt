@@ -3,8 +3,6 @@ package com.freedomrun.features.main
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.os.Looper
 import android.view.LayoutInflater
@@ -14,15 +12,18 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.fragment.app.Fragment
 import com.freedomrun.R
 import com.google.android.gms.location.*
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
@@ -60,22 +61,34 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 buildLocationRequest()
                 buildLocationCallback()
 
-                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-                fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(
+                    requireActivity()
+                )
+                fusedLocationProviderClient.requestLocationUpdates(
+                    locationRequest,
+                    locationCallback,
+                    Looper.myLooper()
+                )
             }
         }else {
             buildLocationRequest()
             buildLocationCallback()
 
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(
+                requireActivity()
+            )
+            fusedLocationProviderClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.myLooper()
+            )
         }
     }
 
     private fun buildLocationCallback() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult) {
-                mLastLocation = p0!!.locations.get(p0!!.locations.size-1) //Get last location
+                mLastLocation = p0!!.locations.get(p0!!.locations.size - 1) //Get last location
 
                 if(mMarker != null) {mMarker!!.remove()}
                 latitude = mLastLocation.latitude
@@ -103,12 +116,26 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun checkLocatianPermission(): Boolean {
-        if (ContextCompat.checkSelfPermission(requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED)
         {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION))
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSION_CODE)
+            if(ActivityCompat.shouldShowRequestPermissionRationale(
+                    requireActivity(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ))
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                    MY_PERMISSION_CODE
+                )
             else
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSION_CODE)
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                    MY_PERMISSION_CODE
+                )
             return false
         }
         else
@@ -116,23 +143,36 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         when (requestCode)
         {
-            MY_PERMISSION_CODE-> {
-                if(grantResults.size > 0 && grantResults[0]  == PackageManager.PERMISSION_GRANTED)
-                {
-                    if(ContextCompat.checkSelfPermission(requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-                        if(checkLocatianPermission()) {
+            MY_PERMISSION_CODE -> {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(
+                            requireActivity(),
+                            android.Manifest.permission.ACCESS_FINE_LOCATION
+                        ) == PackageManager.PERMISSION_GRANTED
+                    )
+                        if (checkLocatianPermission()) {
                             buildLocationRequest()
                             buildLocationCallback()
 
-                            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-                            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
-                            mMap!!.isMyLocationEnabled=true
+                            fusedLocationProviderClient =
+                                LocationServices.getFusedLocationProviderClient(
+                                    requireActivity()
+                                )
+                            fusedLocationProviderClient.requestLocationUpdates(
+                                locationRequest,
+                                locationCallback,
+                                Looper.myLooper()
+                            )
+                            mMap!!.isMyLocationEnabled = true
                         }
-                }
-                else {
+                } else {
                     Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -149,7 +189,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         //Init Google play services
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (ContextCompat.checkSelfPermission(requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            if (ContextCompat.checkSelfPermission(
+                    requireActivity(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED)
             {
                 mMap!!.isMyLocationEnabled=true
             }
