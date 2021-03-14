@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment android:id="@+id/mainFragment" >
+        <action
+            android:id="@+id/action_placeholder_to_currentMaratonFragment"
+            app:destination="@id/currentMaratonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/currentMaratonFragment"
+        android:name="com.freedomrun.features.main.CurrentMaratonFragment"
+        android:label="fragment_current_maraton"
+        tools:layout="@layout/fragment_current_maraton" >
+        <action
+            android:id="@+id/action_currentMaratonFragment_to_placeholder2"
+            app:destination="@id/finishFragment" />
+    </fragment>
+    <fragment android:id="@+id/finishFragment" />
+</navigation>

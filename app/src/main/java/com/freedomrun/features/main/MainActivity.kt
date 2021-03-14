@@ -2,6 +2,7 @@ package com.freedomrun.features.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
 import com.freedomrun.R
 
 class MainActivity : AppCompatActivity(){
@@ -10,11 +11,8 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction()
-            .addToBackStack(null)
-            .add(R.id.main_container, MapsFragment())
-            .commit()
-
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
     }
-
 }
