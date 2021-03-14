@@ -5,6 +5,7 @@ import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
@@ -201,5 +208,45 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             mMap!!.isMyLocationEnabled=true
 
         mMap.uiSettings.isZoomControlsEnabled=true
+    }
+
+    private fun getDirectionsUrl(origin: LatLng, dest: LatLng): String {
+        val strOrigin = "origin=" + origin.latitude + "," + origin.longitude
+        val strDestination = "destination=" + dest.latitude + "," + dest.longitude
+        val sensor = "sensor=false"
+        val mode = "mode=walking"
+
+        val parameters = "$strOrigin&$strDestination&$sensor&$mode"
+
+        val output = "json"
+
+        return "https://maps.googleapis.com/maps/api/directions/$output?$parameters"
+    }
+
+    @Throws(IOException::class)
+    fun downloadUrl(strUrl: String): String? {
+        var data = ""
+        var iStream: InputStream? = null
+        var urlConnection: HttpURLConnection? = null
+        try {
+            val url = URL(strUrl)
+            urlConnection = url.openConnection() as HttpURLConnection
+            urlConnection.connect()
+            iStream = urlConnection.inputStream
+            val br = BufferedReader(InputStreamReader(iStream))
+            val sb = StringBuffer()
+            var line: String? = ""
+            while (br.readLine().also { line = it } != null) {
+                sb.append(line)
+            }
+            data = sb.toString()
+            br.close()
+        } catch (e: Exception) {
+            Log.d("Exception", e.toString())
+        } finally {
+            iStream?.close()
+            urlConnection?.disconnect()
+        }
+        return data
     }
 }
