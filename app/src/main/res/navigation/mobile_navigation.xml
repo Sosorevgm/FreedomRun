@@ -4,15 +4,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigaton_main"
+    app:startDestination="@id/fragmentNewMarafon"
     >
 
     <fragment
-        android:id="@+id/navigaton_main"
-        android:name="com.freedomrun.features.main.MainFragment"
-        tools:layout="@layout/fragment_main"
-        >
-
-    </fragment>
+        android:id="@+id/fragmentNewMarafon"
+        android:name="com.freedomrun.ui.FragmentNewMarafon"
+        android:label="FragmentNewMarafon"
+        tools:layout="@layout/fragment_new_marafon"
+        />
+    <fragment
+        android:id="@+id/fragmentPauseMarafon"
+        android:name="com.freedomrun.ui.FragmentPauseMarafon"
+        android:label="FragmentPauseMarafon"
+        tools:layout="@layout/fragment_pause_marafon"
+        />
+    <fragment
+        android:id="@+id/fragmentCurrentMarafon"
+        android:name="com.freedomrun.ui.FragmentCurrentMarafon"
+        android:label="FragmentPauseMarafon"
+        tools:layout="@layout/fragment_current_marafon"
+        />
+    <activity
+        android:id="@+id/mapsActivity"
+        android:name="com.freedomrun.finish.running.model.ui.MapsActivity"
+        android:label="activity_maps"
+        tools:layout="@layout/activity_maps"
+        />
 
 </navigation>
